@@ -1,50 +1,48 @@
 /* ------------------------------------------------ */
-/* CSS لـ V8.0 (تحسين واجهة المستخدم والتنسيق) - مُحدّث */
+/* CSS لـ V8.1 (تحسين شامل وتوحيد المتغيرات) - مُحدّث */
 /* ------------------------------------------------ */
 
-/* افتراضات المتغيرات */
-:root {
-  --linkC: #0ea5a4; 
-  --white: #ffffff;
-  --bodyC: #64748b; 
-  --bodyB: #f8fafc; 
-  --headC: #0f172a; 
-  --contentL: #e2e8f0; 
-  --contentB: #ffffff; 
-  --greetR: 12px;
-  --thumbEr: 8px;
-  --linkR: 6px;
-  --bs-1: 0 3px 9px -2px rgba(0,0,0,.1);
-  --trans-3: 0.3s;
+/* افتراضات المتغيرات الأساسية */
+
+/* نمط SVG لإيقونة الإزالة */
+.remove-btn svg {
+  width: 14px; /* حجم الأيقونة داخل الزر الدائري */
+  height: 14px;
+  fill: none;
+  stroke: currentColor; /* لاستخدام لون النص الحالي */
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
 }
 
 .BoxTool {
-        position: relative;
-        padding: 13px;
-        border-radius: 10px;
-        background: var(--contentB);
-        margin-top: 20px;
-        box-shadow: 0 3px 9px -2px rgba(0, 0, 0, 0.2);
-        font-family: inherit;
-        color: inherit;
-    }
+    position: relative;
+    padding: 13px;
+    border-radius: 10px;
+    background: var(--contentB);
+    margin-top: 20px;
+    box-shadow: 0 3px 9px -2px rgba(0, 0, 0, 0.2);
+    font-family: inherit;
+    color: inherit;
+}
 
-    .BoxTool::before {
-        border-radius: 70px 0 0 0;
-        bottom: 0;
-        right: 0;
-        content: '';
-        width: 70px;
-        height: 70px;
-        position: absolute;
-        background: rgba(0, 0, 0, .04);
-    }
+.BoxTool::before {
+    border-radius: 70px 0 0 0;
+    bottom: 0;
+    right: 0;
+    content: '';
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    background: rgba(0, 0, 0, .04);
+}
 
 /* تحديد نطاق الأداة وتطبيق الخط الأساسي */
 #amp-story-generator-tool {
-  all: initial; 
+  all: initial;
   display: block;
-  font-family: 'Cairo', sans-serif;
+  font-family: var(--fontB);
   direction: rtl;
   padding: 10px 0;
 }
@@ -58,12 +56,12 @@
 
 /* لوحة الادخال - مصغرة (Panel Style) */
 #amp-story-generator-tool .panel{
-  background:var(--contentB); 
+  background:var(--contentB);
   padding:12px;
-  border-radius:var(--greetR); 
-  box-shadow:var(--bs-1); 
-  border:1px solid var(--contentL); 
-  margin-bottom: 12px; 
+  border-radius:var(--greetR);
+  box-shadow:var(--bs-1);
+  border:1px solid var(--contentL);
+  margin-bottom: 12px;
 }
 
 /* نمط العنوان والزر الإضافي للإزالة */
@@ -81,12 +79,12 @@
     color: var(--linkC);
     font-size: 14px;
     cursor: pointer;
-    padding: 0 6px; /* تصغير البادينج */
+    padding: 0; /* تصغير البادينج */
     line-height: 1.2;
     font-weight: bold;
     border-radius: 50%; /* جعلها دائرية */
-    transition: all 0.3s;
-    width: 25px; 
+    transition: all var(--trans-3);
+    width: 25px;
     height: 25px;
     display: flex;
     align-items: center;
@@ -97,34 +95,55 @@
     background: var(--linkC);
 }
 
-
 /* نمط حقول الإدخال */
 #amp-story-generator-tool label{
-  font-size:9px; 
-  color: var(--headC);
+  font-size:9px;
+  color: var(--headC); /* لون ثابت لجميع الليبلات */
   display:block;
   margin-bottom:4px;
   font-weight:500;
 }
 
-#amp-story-generator-tool input[type="text"], 
-#amp-story-generator-tool textarea, 
+#amp-story-generator-tool input[type="text"],
+#amp-story-generator-tool textarea,
 #amp-story-generator-tool input[type="url"],
 #amp-story-generator-tool input[type="color"],
 #amp-story-generator-tool select {
   width:100%;
-  padding:7px 10px; 
-  border:1px solid var(--contentL); 
-  border-radius:var(--thumbEr); 
-  font-size:9px; 
+  padding:7px 10px;
+  border:1px solid var(--contentL);
+  border-radius:var(--thumbEr);
+  font-size:9px;
   background:var(--bodyB);
   font-family: inherit;
   transition:all var(--trans-3);
   -webkit-appearance: none;
+  /* توحيد لون النص الافتراضي والشفافية */
+  color: var(--headC); /* لون النص عند الكتابة */
 }
 
+/* لون النص التوضيحي (Placeholder) - يصبح شفافاً بلون النص */
+#amp-story-generator-tool input::placeholder,
+#amp-story-generator-tool textarea::placeholder {
+    color: var(--headC);
+    opacity: 0.5; /* جعل لون النصوص التوضيحية شفافة */
+}
+
+/* تأثير الحدود عند التركيز */
+#amp-story-generator-tool input[type="text"]:focus,
+#amp-story-generator-tool textarea:focus,
+#amp-story-generator-tool input[type="url"]:focus,
+#amp-story-generator-tool input[type="color"]:focus,
+#amp-story-generator-tool select:focus {
+    border-color: var(--linkC);
+    box-shadow: 0 0 0 1px var(--linkC);
+    background: var(--contentB); /* تغيير الخلفية للتمييز */
+    outline: none;
+}
+
+
 #amp-story-generator-tool textarea{
-    height: 50px; 
+    height: 50px;
     resize: vertical;
 }
 
@@ -138,7 +157,7 @@
   display:flex;
   gap:12px;
   flex-wrap:wrap;
-  margin-bottom: 12px; 
+  margin-bottom: 12px;
   color: var(--headC);
 }
 
@@ -163,8 +182,8 @@
 }
 
 #amp-story-generator-tool .quarter {
-  flex: 1; 
-  min-width: 70px; 
+  flex: 1;
+  min-width: 70px;
 }
 
 #amp-story-generator-tool .full {
@@ -179,37 +198,37 @@
   padding: 4px;
 }
 
+/* نمط مجموعة إدخال المميزات */
 .feature-input-group {
   display: grid;
   grid-template-columns: 1fr 110px 26px;
-  align-items: start;
+  align-items: stretch; /* لضمان تساوي الارتفاع */
   gap: 8px;
-  background: var(--contentB, #fafafa);
-  border: 1px solid var(--contentL, #ddd);
+  background: var(--contentB);
+  border: 1px solid var(--contentL);
   border-radius: 8px;
   padding: 6px 8px;
-  transition: 0.25s ease;
+  transition: var(--trans-3);
 }
 
 .feature-input-group:hover {
-  background: var(--hover, #f3f3f3);
-  border-color: var(--linkC, #0ea5a4);
+  background: var(--bodyB);
+  border-color: var(--linkC);
 }
 
-
-/* تنسيق صناديق النص والأيقونة */
+/* تنسيق صناديق النص والأيقونة - للحفاظ على التناسق */
 .text-input,
 .icon-input {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
+  /* إزالة الـ height: 100%; ليعتمد على محتواه */
 }
 
 .text-input label,
 .icon-input label {
   font-size: 10px;
-  color: var(--bodyC, #555);
+  color: var(--bodyC);
   font-weight: 400;
   margin-bottom: 3px;
 }
@@ -219,56 +238,64 @@
   width: 100%;
   font-size: 10px;
   padding: 5px 6px;
-  border: 1px solid var(--contentL, #ccc);
+  border: 1px solid var(--contentL);
   border-radius: 4px;
-  background: var(--white, #fff);
+  background: var(--bodyB);
   transition: border-color 0.2s, background 0.2s;
   height: 26px; /* توحيد الارتفاع */
   box-sizing: border-box;
+  color: var(--headC); /* لون النص عند الكتابة */
 }
+
+/* لون نصوص الكلاسات svg - استخدام المتغير iconC */
+.feature-input-group .icon-input input {
+    color: var(--iconC);
+    font-weight: bold;
+    text-align: center;
+}
+
 
 .text-input input:focus,
 .icon-input input:focus {
-  border-color: var(--linkC, #0ea5a4);
+  border-color: var(--linkC);
   outline: none;
+  box-shadow: 0 0 0 1px var(--linkC);
+  background: var(--contentB);
 }
 
 .input-info {
   font-size: 9px;
-  color: var(--bodyL, #999);
+  color: var(--bodyC);
   margin-top: 2px;
 }
 
-/* زر الحذف */
+/* زر الحذف داخل قائمة المميزات */
 .feature-input-controls {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.remove-btn {
+.feature-input-controls .remove-btn {
   background: transparent;
   border: none;
-  color: var(--bodyL, #999);
+  color: var(--bodyC); /* لون افتراضي مختلف عن زر اللوحة */
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  transition: 0.2s;
+  transition: var(--trans-3);
   padding: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid transparent !important; /* لإلغاء الحدود الأصلية للزر الدائري */
 }
 
-.remove-btn:hover {
+.feature-input-controls .remove-btn:hover {
   color: #f44336;
   transform: scale(1.15);
+  background: rgba(244, 67, 54, 0.1);
 }
-
-/* تحسين العرض للشاشات الصغيرة */
-@media (max-width: 600px) {
-  .feature-input-group {
-    grid-template-columns: 1fr 1fr 26px;
-  }
-}
-
 
 /* مجموعة أزرار التوليد ونسخ الكود (شريط أفقي) - تم تحديث هذا الجزء */
 #amp-story-generator-tool .submit-row {
@@ -280,7 +307,7 @@
 
 /* زر اعادة التعيين */
 #amp-story-generator-tool button[type="reset"] {
-    background: #ff9800;
+    background: var(--iconCs); /* استخدام متغير ثانوي للأيقونات/التحذير */
     color: var(--white);
     border: none;
     padding: 9px 15px;
@@ -290,30 +317,30 @@
     font-size: 9px;
     transition: all var(--trans-3);
     width: 100%;
-    margin-top: 0; /* تم تعديله */
-    order: 1; 
+    margin-top: 0;
+    order: 1;
 }
 
 /* زر الإنشاء */
 #amp-story-generator-tool button[type="submit"] {
-    background: var(--linkC); 
-    color: var(--white); /* تغيير اللون ليتناسب مع الخلفية */
+    background: var(--linkC);
+    color: var(--white);
     border: none;
-    padding: 9px 15px; 
-    border-radius: var(--linkR); 
+    padding: 9px 15px;
+    border-radius: var(--linkR);
     font-weight: 600;
     cursor:pointer;
-    font-size:9px; 
-    transition:all var(--trans-3); 
+    font-size:9px;
+    transition:all var(--trans-3);
     width: 100%;
-    margin-top: 0; /* تم تعديله */
-    order: 2; 
+    margin-top: 0;
+    order: 2;
 }
 
 /* زر النسخ الجديد - تم تحديثه */
 #amp-story-generator-tool .copy-btn-inline {
-    background: #4CAF50; /* لون جديد مميز */
-    color: var(--white); 
+    background: var(--iconCa); /* استخدام لون إضافي للأيقونات/النجاح */
+    color: var(--white);
     border: none;
     padding: 9px 15px;
     border-radius: var(--linkR);
@@ -322,7 +349,7 @@
     font-size: 9px;
     transition: all var(--trans-3);
     width: 100%;
-    margin-top: 0; /* تم تعديله */
+    margin-top: 0;
     order: 3;
     text-align: center;
     display: flex;
@@ -346,7 +373,7 @@
     border-radius: var(--greetR);
     border: 1px solid var(--contentL);
     box-shadow: var(--bs-1);
-    grid-column: 1 / -1; /* لجعل الكود يأخذ عرض الأداة بالكامل */
+    grid-column: 1 / -1;
 }
 
 #amp-story-generator-tool #generatedCode {
@@ -356,7 +383,7 @@
     border-radius: var(--thumbEr);
     background: var(--contentB);
     padding: 8px;
-    font-family: monospace;
+    font-family: var(--fontC);
     font-size: 11px;
     resize: none;
     line-height: 1.4;
@@ -367,7 +394,7 @@
 
 /* إخفاء زر النسخ القديم */
 #amp-story-generator-tool .copy-btn {
-    display: none !important; 
+    display: none !important;
 }
 
 
@@ -380,9 +407,9 @@
 }
 
 .tool-alert {
-    background: #fff3cd; /* لون تنبيهي مختلف */
-    color: #856404; /* لون نص مختلف */
-    border: 1px solid #ffeeba;
+    background: var(--notifB);
+    color: var(--notifC);
+    border: 1px solid #ffeeba; /* قيمة ثابتة قريبة من الأصفر الفاتح */
     border-radius: var(--thumbEr);
     padding: 8px 10px;
     font-size: 12px;
@@ -390,8 +417,9 @@
 }
 
 @media (min-width: 600px) {
-  #amp-story-generator-tool .feature-input-group {
-    grid-template-columns: 5fr 2fr 30px; 
+  .feature-input-group {
+    /* تم توحيد ارتفاع حقول الإدخال في CSS المحدث */
+    grid-template-columns: 5fr 2fr 30px !important;
   }
 }
 
@@ -406,21 +434,37 @@
     display: block;
     margin-top: 4px;
 }
-/* شبكة العمودين لقسم بيانات القصة الرئيسية */
+
+/* شبكة العمودين لقسم بيانات القصة الرئيسية وقائمة المميزات */
 .two-column-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     width: 100%;
+    align-items: start; /* لضمان التوازن في الارتفاع */
 }
-
+/* تم دمج التنسيقات المدمجة من HTML هنا */
+.panel > label,
+.panel-header > label {
+    color: var(--headC);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: block;
+}
+.panel-header > label {
+    margin-bottom: 0;
+}
 .two-column-grid .input-with-info {
     display: flex;
     flex-direction: column;
-    min-width: 0; /* يمنع التجاوز */
+    min-width: 0;
 }
 
-/* التأكد من أن جميع العناصر تأخذ نصف العرض */
+.two-column-grid .input-with-info label {
+    color: var(--headC);
+}
+
 .two-column-grid .input-with-info,
 .two-column-grid .input-with-info input,
 .two-column-grid .input-with-info select,
@@ -429,7 +473,7 @@
     box-sizing: border-box;
 }
 
-/* لضمان التوازن في الارتفاع */
-.two-column-grid {
-    align-items: start;
+/* التنسيق الخاص بالصفحة النهائية والزر الإضافي */
+.finalAnimationRow, .howToUseAnimationRow, .howToUseColorRow, .finalColorRow {
+    margin-bottom: 0 !important;
 }
